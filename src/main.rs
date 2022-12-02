@@ -18,14 +18,27 @@ fn main() {
         }
     }
 
-    let max_calories = totals.iter().max().unwrap();
-    println!("Max calorie value is: {}", max_calories);
+    //let max_calories = get_max(&totals);
+    //println!("Elf with the most calories has {} kcals in snacks.", max_calories);
 
-    totals.sort();
-    let l = totals.len()-1;
-    let top_three = (totals[l], totals[l-1], totals[l-2]);
-    println!("1st calorie elf: {} kcals", top_three.0);
-    println!("2nd calorie elf: {} kcals", top_three.1);
-    println!("3rd calorie elf: {} kcals", top_three.2);
-    println!("Total kcals for top three: {}", top_three.0+top_three.1+top_three.2);
+    let (first, second, third) = get_top_three(&mut totals);
+    let total_kcals = first + second + third;
+
+    println!("#1 elf: {} kcals", first);
+    println!("#2 elf: {} kcals", second);
+    println!("#3 elf: {} kcals", third);
+    println!("Total kcals for top three: {}", total_kcals);
+}
+
+// Get the largest element out of a vector of integers
+fn get_max(v: &Vec<usize>) -> usize {
+    *v.iter().max().unwrap()
+}
+
+// Get the top three largest elements out of a vector of integers,
+// as a tuple.
+fn get_top_three(v: &mut Vec<usize>) -> (usize, usize, usize) {
+    v.sort();
+    v.reverse();
+    (v[0], v[1], v[2])
 }
